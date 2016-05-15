@@ -52,7 +52,6 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    private ImageView newsPhoto;
 
     private Noticia mItem;
     private FragmentActivity activity;
@@ -98,7 +97,7 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
         if (appBarLayout != null) {
             appBarLayout.setTitle(" ");
         }
-        newsPhoto = (ImageView) activity.findViewById(R.id.newsPhoto);
+        ImageView newsPhoto = (ImageView) activity.findViewById(R.id.newsPhoto);
 
         if (mItem != null) {
             button.setOnClickListener(this);
@@ -114,8 +113,10 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
             detail.setText(Html.fromHtml(mItem.getDescription()));
             Date fecha = mItem.getPubDate();
             pubdate.setText(DateFormatter.convertDateToString(fecha));
-            if(!NoticiasSQLiteHelper.CheckExist(db,mItem.getUrl()))
-                NoticiasSQLiteHelper.insertNoticia(db,mItem);
+            if(!Noticia.CheckExist(db,mItem.getUrl())){
+                Noticia.insertNoticia(db,mItem);
+            }
+
         }
 
         return rootView;

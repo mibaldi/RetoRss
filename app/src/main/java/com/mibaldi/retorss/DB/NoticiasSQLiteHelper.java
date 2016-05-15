@@ -27,7 +27,7 @@ public class NoticiasSQLiteHelper extends SQLiteOpenHelper {
     public static final String KEY_PHOTO = "photo";
     public static final String KEY_URL = "url";
 
-    // Sentencia SQL para crear la tabla de Jugadores
+    // Sentencia SQL para crear la tabla de Noticias
     String sqlCreate = "CREATE TABLE " + DATABASE_TABLE + "("
             + "_id " + "INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_TITLE + " TEXT, "
@@ -43,6 +43,10 @@ public class NoticiasSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(sqlCreate);
+
+    }
+    public static void close(SQLiteDatabase db){
+        db.close();
     }
 
     @Override
@@ -52,53 +56,6 @@ public class NoticiasSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
         // Creamos la nueva versión de la tabla
         db.execSQL(sqlCreate);
-    }
-    public static void insertNoticia(SQLiteDatabase db,Noticia news) {
-        ContentValues nuevaNoticia = new ContentValues();
-        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_TITLE, news.getTitle());
-        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_DESCRIPTION, news.getDescription());
-        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_DATE, DateFormatter.convertDateToString(news.getPubDate()));
-        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_PHOTO, news.getImage());
-        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_URL,news.getUrl());
-        db.insert(NoticiasSQLiteHelper.DATABASE_TABLE, null, nuevaNoticia);
-    }
-    public static boolean CheckExist(SQLiteDatabase db,String url) {
-        url = DatabaseUtils.sqlEscapeString(url);
-
-        String Query = "Select * from " + NoticiasSQLiteHelper.DATABASE_TABLE + " where " + NoticiasSQLiteHelper.KEY_URL + " = "+url;
-        Cursor cursor = db.rawQuery(Query,null);
-        if(cursor.getCount() <= 0){
-            cursor.close();
-            return false;
-        }
-        cursor.close();
-        return true;
-    }
-    public static List<Noticia> verMisNoticias(SQLiteDatabase db) {
-        List<Noticia> noticias = new ArrayList<>();
-        String[] campos = new String[]{NoticiasSQLiteHelper.KEY_TITLE, NoticiasSQLiteHelper.KEY_DESCRIPTION,NoticiasSQLiteHelper.KEY_DATE, NoticiasSQLiteHelper.KEY_PHOTO,NoticiasSQLiteHelper.KEY_URL};
-        Cursor c = db.query(NoticiasSQLiteHelper.DATABASE_TABLE, campos, null, null, null, null,
-                null);
-        if (c.moveToFirst()) {
-            // Recorremos el cursor hasta que no haya más registros
-            do {
-                String title = c.getString(0);
-                String description = c.getString(1);
-                String pubDate = c.getString(2);
-                String photo = c.getString(3);
-                String url = c.getString(4);
-                Noticia noticia = new Noticia();
-                noticia.setTitle(title);
-                noticia.setDescription(description);
-                noticia.setPubDate(DateFormatter.convertStringToDate(pubDate));
-                noticia.setImage(photo);
-                noticia.setUrl(url);
-                noticias.add(noticia);
-
-            } while (c.moveToNext());
-        }
-        c.close();
-        return noticias;
     }
 
 }

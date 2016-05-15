@@ -71,7 +71,6 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
     private NoticiasRecyclerViewAdapter noticiasRecyclerViewAdapter;
     private SQLiteDatabase db;
     private MenuItem myActionMenuItem;
-    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +81,7 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (toolbar != null)
         toolbar.setTitle(getTitle());
 
         mProgressDialog = new ProgressDialog(this);
@@ -89,15 +89,8 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
         assert recyclerView != null;
 
 
-        if (findViewById(R.id.noticia_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }else {
-            mTwoPane = false;
-        }
+        mTwoPane=(findViewById(R.id.noticia_detail_container) != null);
+
         setupRecyclerView((RecyclerView) recyclerView);
 
 
@@ -136,6 +129,7 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
             myAsyncTask.execute(URL2);
 
         }else{
+            setTitle(getString(R.string.offline));
             NoticiasSQLiteHelper newsSQLH = new NoticiasSQLiteHelper(NoticiaListActivity.this, NoticiasSQLiteHelper.DATABASE_NAME,
                     null, NoticiasSQLiteHelper.DATABASE_VERSION);
 
@@ -164,7 +158,7 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
                 return true;
             case R.id.action_search:
 
-                searchView = (SearchView) myActionMenuItem.getActionView();
+                SearchView searchView = (SearchView) myActionMenuItem.getActionView();
                 searchView.setOnQueryTextListener(this);
 
                 MenuItemCompat.setOnActionExpandListener(myActionMenuItem, new MenuItemCompat.OnActionExpandListener() {
@@ -234,7 +228,7 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
                 ParseadorRSSXML saxparser = new ParseadorRSSXML(params[0]);
                 return saxparser.parse();
             }else{
-                return NoticiasSQLiteHelper.verMisNoticias(db);
+                return Noticia.verMisNoticias(db);
             }
 
         }

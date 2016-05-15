@@ -12,7 +12,6 @@ public class NetworkHelper {
     private static NetworkHelper instance = new NetworkHelper();
     static Context context;
     ConnectivityManager connectivityManager;
-    NetworkInfo wifiInfo, mobileInfo;
     boolean connected = false;
 
     public static NetworkHelper getInstance(Context ctx) {

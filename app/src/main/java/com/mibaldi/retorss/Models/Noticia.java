@@ -1,9 +1,18 @@
 package com.mibaldi.retorss.Models;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.mibaldi.retorss.DB.NoticiasSQLiteHelper;
+import com.mibaldi.retorss.Utils.DateFormatter;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.
@@ -92,4 +101,52 @@ public class Noticia implements Parcelable {
             return new Noticia[size];
         }
     };
+    public static void insertNoticia(SQLiteDatabase db, Noticia news) {
+
+        ContentValues nuevaNoticia = new ContentValues();
+        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_TITLE, news.getTitle());
+        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_DESCRIPTION, news.getDescription());
+        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_DATE, DateFormatter.convertDateToString(news.getPubDate()));
+        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_PHOTO, news.getImage());
+        nuevaNoticia.put(NoticiasSQLiteHelper.KEY_URL,news.getUrl());
+        db.insert(NoticiasSQLiteHelper.DATABASE_TABLE, null, nuevaNoticia);
+    }
+    public static boolean CheckExist(SQLiteDatabase db,String url) {
+        url = DatabaseUtils.sqlEscapeString(url);
+
+        String Query = "Select * from " + NoticiasSQLiteHelper.DATABASE_TABLE + " where " + NoticiasSQLiteHelper.KEY_URL + " = "+url;
+        Cursor cursor = db.rawQuery(Query,null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+    public static List<Noticia> verMisNoticias(SQLiteDatabase db) {
+        List<Noticia> noticias = new ArrayList<>();
+        String[] campos = new String[]{NoticiasSQLiteHelper.KEY_TITLE, NoticiasSQLiteHelper.KEY_DESCRIPTION,NoticiasSQLiteHelper.KEY_DATE, NoticiasSQLiteHelper.KEY_PHOTO,NoticiasSQLiteHelper.KEY_URL};
+        Cursor c = db.query(NoticiasSQLiteHelper.DATABASE_TABLE, campos, null, null, null, null,
+                null);
+        if (c.moveToFirst()) {
+            // Recorremos el cursor hasta que no haya más registros
+            do {
+                String title = c.getString(0);
+                String description = c.getString(1);
+                String pubDate = c.getString(2);
+                String photo = c.getString(3);
+                String url = c.getString(4);
+                Noticia noticia = new Noticia();
+                noticia.setTitle(title);
+                noticia.setDescription(description);
+                noticia.setPubDate(DateFormatter.convertStringToDate(pubDate));
+                noticia.setImage(photo);
+                noticia.setUrl(url);
+                noticias.add(noticia);
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        return noticias;
+    }
 }

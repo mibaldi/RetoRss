@@ -10,4 +10,6 @@
     <string name="España">Spain</string>
     <string name="Portada">Front Page</string>
     <string name="visitar_web">See in the browser</string>
+    <string name="offline">Offline</string>
+    <string name="SinDescripcion">Without Description</string>
 </resources>

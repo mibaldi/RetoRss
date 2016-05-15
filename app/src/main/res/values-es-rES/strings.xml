@@ -11,4 +11,6 @@
     <string name="textSettings">Opción para cambiar la fuente de datos</string>
     <string name="titleSettings">ACTUALIZACIÓN DE PREFERENCIAS</string>
     <string name="title_noticia_detail">Detalles de la noticia</string>
+    <string name="offline">Sin Conexión</string>
+    <string name="SinDescripcion">Sin Descripcion</string>
 </resources>

@@ -40,7 +40,7 @@ public class NoticiaListHolder extends RecyclerView.ViewHolder {
             description.setText(Html.fromHtml(noticia.getDescription()));
         }
         else{
-            description.setText("Sin Descripcion");
+            description.setText(R.string.SinDescripcion);
         }
 
         Picasso.with(context).load(noticia.getImage()).placeholder(ContextCompat.getDrawable(context,android.R.drawable.ic_dialog_email)).into(image);
