@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".NoticiaListActivity"
+            android:name=".Activities.NoticiaListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NoticiaDetailActivity"
+            android:name=".Activities.NoticiaDetailActivity"
             android:label="@string/title_noticia_detail"
-            android:parentActivityName=".NoticiaListActivity"
+            android:parentActivityName=".Activities.NoticiaListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mibaldi.retorss.NoticiaListActivity" />
+                android:value=".Activities.NoticiaListActivity" />
         </activity>
     </application>
 

@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.mibaldi.retorss.NoticiaListActivity"
+    tools:context=".Activities.NoticiaListActivity"
     tools:listitem="@layout/noticia_list_content" />

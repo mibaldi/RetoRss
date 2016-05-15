@@ -1,11 +1,10 @@
-package com.mibaldi.retorss;
+package com.mibaldi.retorss.Activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
@@ -16,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.mibaldi.retorss.dummy.DummyContent;
+import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
+import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
+import com.mibaldi.retorss.Models.Noticia;
+import com.mibaldi.retorss.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,11 +33,14 @@ import java.util.List;
  */
 public class NoticiaListActivity extends AppCompatActivity {
 
+
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    private boolean mTwoPane;
+    private static boolean mTwoPane;
+    private List<Noticia> noticias = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +51,9 @@ public class NoticiaListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         View recyclerView = findViewById(R.id.noticia_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+
 
         if (findViewById(R.id.noticia_detail_container) != null) {
             // The detail container view will be present only in the
@@ -64,14 +61,26 @@ public class NoticiaListActivity extends AppCompatActivity {
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
+        }else {
+            mTwoPane = false;
         }
+        Noticia noticia= new Noticia();
+        noticia.setTitle("Nueva noticia");
+        noticia.setDescription("descripcion");
+        noticia.setUrl("http://www.google.es");
+        noticias.add(noticia);
+        setupRecyclerView((RecyclerView) recyclerView);
+
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new NoticiasRecyclerViewAdapter(noticias));
+    }
+    public static boolean ismTwoPane() {
+        return mTwoPane;
     }
 
-    public class SimpleItemRecyclerViewAdapter
+   /* public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final List<DummyContent.DummyItem> mValues;
@@ -138,5 +147,5 @@ public class NoticiaListActivity extends AppCompatActivity {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
         }
-    }
+    }*/
 }
