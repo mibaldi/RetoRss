@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
@@ -21,6 +23,7 @@ import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
 import com.mibaldi.retorss.Rss.ParseadorRSSXML;
 import com.mibaldi.retorss.Utils.CustomComparator;
+import com.mibaldi.retorss.Utils.NetworkHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,8 +74,19 @@ public class NoticiaListActivity extends AppCompatActivity {
             mTwoPane = false;
         }
         setupRecyclerView((RecyclerView) recyclerView);
-        MyXmlAsyncTask myXmlAsyncTask = new MyXmlAsyncTask();
-        myXmlAsyncTask.execute(URL2);
+
+        populateList();
+
+    }
+
+    private void populateList() {
+        if (NetworkHelper.getInstance(this).isConnected()){
+            MyXmlAsyncTask myXmlAsyncTask = new MyXmlAsyncTask();
+            myXmlAsyncTask.execute(URL2);
+            Toast.makeText(this,"Con conexion",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"Sin conexion",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
