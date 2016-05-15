@@ -36,7 +36,13 @@ public class NoticiaListHolder extends RecyclerView.ViewHolder {
 
     public void bindItem(final Noticia noticia) {
         title.setText(noticia.getTitle());
-        description.setText(Html.fromHtml(noticia.getDescription()));
+        if (noticia.getDescription() != null){
+            description.setText(Html.fromHtml(noticia.getDescription()));
+        }
+        else{
+            description.setText("Sin Descripcion");
+        }
+
         Picasso.with(context).load(noticia.getImage()).placeholder(ContextCompat.getDrawable(context,android.R.drawable.ic_dialog_email)).into(image);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

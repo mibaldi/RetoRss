@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Noticia implements Parcelable {
     private String title;
-    private String description;
+    private String description = "Sin descripcion";
     private Date pubDate;
     private String url;
     private String image;

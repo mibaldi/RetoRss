@@ -5,4 +5,5 @@
     <string name="titleSettings">UPDATE SETTINGS</string>
     <string name="subTitleSettings">Change newsfeed</string>
     <string name="textSettings">Option to change newsfeed.</string>
+    <string name="action_settings">Settings</string>
 </resources>

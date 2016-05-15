@@ -3,7 +3,7 @@
     <PreferenceCategory android:title="@string/titleSettings">
         <ListPreference android:title="@string/subTitleSettings"
             android:summary="@string/textSettings"
-            android:key="toolbarColor"
+            android:key="newsfeed"
             android:defaultValue="0"
             android:entries="@array/listArray"
             android:entryValues="@array/listValues" />

@@ -110,6 +110,7 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
             }
 
             title.setText(mItem.getTitle());
+
             detail.setText(Html.fromHtml(mItem.getDescription()));
             Date fecha = mItem.getPubDate();
             pubdate.setText(DateFormatter.convertDateToString(fecha));

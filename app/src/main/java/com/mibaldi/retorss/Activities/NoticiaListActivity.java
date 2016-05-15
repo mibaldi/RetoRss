@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -29,11 +30,15 @@ import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
 import com.mibaldi.retorss.DB.NoticiasSQLiteHelper;
 import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
 import com.mibaldi.retorss.Models.Noticia;
+import com.mibaldi.retorss.Preferences.PreferenceActivity;
+import com.mibaldi.retorss.Preferences.PreferencesManager;
 import com.mibaldi.retorss.R;
 import com.mibaldi.retorss.Rss.ParseadorRSSXML;
 import com.mibaldi.retorss.Utils.CustomComparator;
 import com.mibaldi.retorss.Utils.DateFormatter;
 import com.mibaldi.retorss.Utils.NetworkHelper;
+import com.mibaldi.retorss.Utils.NewsFeedType;
+import com.mibaldi.retorss.Utils.NewsFeedUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +58,7 @@ import java.util.List;
 public class NoticiaListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 
-    private static final String URL2 = "http://estaticos.elmundo.es/elmundo/rss/portada.xml";
+    public static String URL2 = "http://estaticos.elmundo.es/elmundo/rss/portada.xml";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -69,11 +74,13 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferencesManager.getInstance().setContext(getApplicationContext());
         setContentView(R.layout.activity_noticia_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+
         mProgressDialog = new ProgressDialog(this);
         View recyclerView = findViewById(R.id.noticia_list);
         assert recyclerView != null;
@@ -90,23 +97,48 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
         }
         setupRecyclerView((RecyclerView) recyclerView);
 
-        populateList();
+
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyPreferences();
+
+        populateList();
+    }
+
+    private void applyPreferences() {
+        NewsFeedType newsfeed = PreferencesManager.getInstance().getSelectedNewsFeed();
+        NewsFeedUtils.applyNewsFeed(newsfeed);
+        switch (newsfeed){
+            case PORTADA:
+                setTitle("Portada");
+                break;
+            case ESPAÑA:
+                setTitle("España");
+                break;
+            case DEPORTE:
+                setTitle("Deportes");
+                break;
+        }
+    }
+
     private void populateList() {
+        noticias.clear();
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         if (NetworkHelper.getInstance(this).isConnected()){
 
             myAsyncTask.execute(URL2);
-            Toast.makeText(this,"Con conexion",Toast.LENGTH_SHORT).show();
+
         }else{
             NoticiasSQLiteHelper newsSQLH = new NoticiasSQLiteHelper(NoticiaListActivity.this, NoticiasSQLiteHelper.DATABASE_NAME,
                     null, NoticiasSQLiteHelper.DATABASE_VERSION);
 
             db = newsSQLH.getWritableDatabase();
             myAsyncTask.execute("");
-            Toast.makeText(this,"Sin conexion",Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -115,24 +147,40 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search, menu);
-
         myActionMenuItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-
-        MenuItemCompat.setOnActionExpandListener(myActionMenuItem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                return true;
-            }
-        });
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(getApplicationContext(), PreferenceActivity.class);
+                startActivity(intent);
+               // overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                return true;
+            case R.id.action_search:
+
+                searchView = (SearchView) myActionMenuItem.getActionView();
+                searchView.setOnQueryTextListener(this);
+
+                MenuItemCompat.setOnActionExpandListener(myActionMenuItem, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        return true;
+                    }
+                });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;

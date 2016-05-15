@@ -3,11 +3,11 @@
     <string-array name="listArray">
         <item>Portada</item>
         <item>España</item>
-        <item>Internacional</item>
+        <item>Deporte</item>
     </string-array>
     <string-array name="listValues">
-        <item>http://estaticos.elmundo.es/elmundo/rss/portada.xml</item>
-        <item>http://estaticos.elmundo.es/elmundo/rss/espana.xml</item>
-        <item>http://estaticos.elmundo.es/elmundo/rss/internacional.xml</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>
