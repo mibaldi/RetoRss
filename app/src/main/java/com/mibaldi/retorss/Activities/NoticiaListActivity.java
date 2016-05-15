@@ -20,8 +20,11 @@ import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
 import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
 import com.mibaldi.retorss.Rss.ParseadorRSSXML;
+import com.mibaldi.retorss.Utils.CustomComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -67,11 +70,6 @@ public class NoticiaListActivity extends AppCompatActivity {
         }else {
             mTwoPane = false;
         }
-        /*Noticia noticia= new Noticia();
-        noticia.setTitle("Nueva noticia");
-        noticia.setDescription("descripcion");
-        noticia.setUrl("http://www.google.es");
-        noticias.add(noticia);*/
         setupRecyclerView((RecyclerView) recyclerView);
         MyXmlAsyncTask myXmlAsyncTask = new MyXmlAsyncTask();
         myXmlAsyncTask.execute(URL2);
@@ -106,6 +104,7 @@ public class NoticiaListActivity extends AppCompatActivity {
             if (mProgressDialog.isShowing())
                 mProgressDialog.dismiss();
             noticias.addAll(items);
+            Collections.sort(noticias, new CustomComparator());
             noticiasRecyclerViewAdapter.notifyDataSetChanged();
         }
     }

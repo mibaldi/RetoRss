@@ -69,14 +69,20 @@ public class ParseadorRSSXML {
                 noticiaActual.setImage(attributes.getValue("url"));
             }
         });
-        noticia.getChild("description").setEndTextElementListener(new EndTextElementListener() {
+        noticia.getChild("http://search.yahoo.com/mrss/","description").setEndTextElementListener(new EndTextElementListener() {
+            @Override
+            public void end(String body) {
+                noticiaActual.setDescription(body);
+            }
+        });
+        /*noticia.getChild("description").setEndTextElementListener(new EndTextElementListener() {
             @Override
             public void end(String body) {
 
 
                 noticiaActual.setDescription(body);
             }
-        });
+        });*/
         noticia.getChild("guid").setEndTextElementListener(new EndTextElementListener() {
             @Override
             public void end(String body) {

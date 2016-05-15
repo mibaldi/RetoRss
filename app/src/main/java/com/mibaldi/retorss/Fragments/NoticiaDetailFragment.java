@@ -1,6 +1,8 @@
 package com.mibaldi.retorss.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,11 +33,8 @@ import butterknife.ButterKnife;
  * in two-pane mode (on tablets) or a {@link NoticiaDetailActivity}
  * on handsets.
  */
-public class NoticiaDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
+public class NoticiaDetailFragment extends Fragment implements View.OnClickListener {
+
     @Bind(R.id.noticia_detail)
     TextView detail;
     @Bind(R.id.pubdate)
@@ -44,11 +43,13 @@ public class NoticiaDetailFragment extends Fragment {
     TextView title;
     @Bind(R.id.button)
     Button button;
+    /**
+     * The fragment argument representing the item ID that this fragment
+     * represents.
+     */
     public static final String ARG_ITEM_ID = "item_id";
     private ImageView newsPhoto;
-    /**
-     * The dummy content this fragment is presenting.
-     */
+
     private Noticia mItem;
     private FragmentActivity activity;
 
@@ -71,9 +72,7 @@ public class NoticiaDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+
             mItem = getArguments().getParcelable(ARG_ITEM_ID);
 
             activity = this.getActivity();
@@ -91,8 +90,9 @@ public class NoticiaDetailFragment extends Fragment {
             appBarLayout.setTitle(" ");
         }
         newsPhoto = (ImageView) activity.findViewById(R.id.newsPhoto);
-        // Show the dummy content as text in a TextView.
+
         if (mItem != null) {
+            button.setOnClickListener(this);
             if (newsPhoto != null)
                 Picasso.with(activity).load(mItem.getImage()).into(newsPhoto);
             title.setText(mItem.getTitle());
@@ -102,5 +102,15 @@ public class NoticiaDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button:
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(mItem.getUrl()));
+                activity.startActivity(intent);
+        }
     }
 }
