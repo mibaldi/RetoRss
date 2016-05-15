@@ -1,8 +1,11 @@
 package com.mibaldi.retorss.Activities;
 
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +21,13 @@ import android.widget.Toast;
 
 
 import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
+import com.mibaldi.retorss.DB.NoticiasSQLiteHelper;
 import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
 import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
 import com.mibaldi.retorss.Rss.ParseadorRSSXML;
 import com.mibaldi.retorss.Utils.CustomComparator;
+import com.mibaldi.retorss.Utils.DateFormatter;
 import com.mibaldi.retorss.Utils.NetworkHelper;
 
 import java.util.ArrayList;
@@ -50,6 +55,7 @@ public class NoticiaListActivity extends AppCompatActivity {
     private List<Noticia> noticias = new ArrayList<>();
     private ProgressDialog mProgressDialog;
     private NoticiasRecyclerViewAdapter noticiasRecyclerViewAdapter;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +86,17 @@ public class NoticiaListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
+        MyAsyncTask myAsyncTask = new MyAsyncTask();
         if (NetworkHelper.getInstance(this).isConnected()){
-            MyXmlAsyncTask myXmlAsyncTask = new MyXmlAsyncTask();
-            myXmlAsyncTask.execute(URL2);
+
+            myAsyncTask.execute(URL2);
             Toast.makeText(this,"Con conexion",Toast.LENGTH_SHORT).show();
         }else{
+            NoticiasSQLiteHelper newsSQLH = new NoticiasSQLiteHelper(NoticiaListActivity.this, NoticiasSQLiteHelper.DATABASE_NAME,
+                    null, NoticiasSQLiteHelper.DATABASE_VERSION);
+
+            db = newsSQLH.getWritableDatabase();
+            myAsyncTask.execute("");
             Toast.makeText(this,"Sin conexion",Toast.LENGTH_SHORT).show();
         }
 
@@ -97,7 +109,7 @@ public class NoticiaListActivity extends AppCompatActivity {
     public static boolean ismTwoPane() {
         return mTwoPane;
     }
-    private class MyXmlAsyncTask extends AsyncTask<String, Void, List<Noticia>> {
+    private class MyAsyncTask extends AsyncTask<String, Void, List<Noticia>> {
 
         @Override
         protected void onPreExecute() {
@@ -109,8 +121,13 @@ public class NoticiaListActivity extends AppCompatActivity {
 
         @Override
         protected List<Noticia> doInBackground(String... params) {
-            ParseadorRSSXML saxparser = new ParseadorRSSXML(params[0]);
-            return saxparser.parse();
+            if (!params[0].isEmpty()){
+                ParseadorRSSXML saxparser = new ParseadorRSSXML(params[0]);
+                return saxparser.parse();
+            }else{
+                return NoticiasSQLiteHelper.verMisNoticias(db);
+            }
+
         }
 
         @Override
@@ -122,4 +139,6 @@ public class NoticiaListActivity extends AppCompatActivity {
             noticiasRecyclerViewAdapter.notifyDataSetChanged();
         }
     }
+
+
 }

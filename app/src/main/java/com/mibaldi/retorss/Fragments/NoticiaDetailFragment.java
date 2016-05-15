@@ -2,6 +2,7 @@ package com.mibaldi.retorss.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.mibaldi.retorss.Activities.NoticiaDetailActivity;
 import com.mibaldi.retorss.Activities.NoticiaListActivity;
+import com.mibaldi.retorss.DB.NoticiasSQLiteHelper;
 import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
 import com.mibaldi.retorss.Utils.DateFormatter;
@@ -43,6 +45,8 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
     TextView title;
     @Bind(R.id.button)
     Button button;
+    @Bind(R.id.imageView2)
+    ImageView photo;
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -52,6 +56,7 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
 
     private Noticia mItem;
     private FragmentActivity activity;
+    private SQLiteDatabase db;
 
     public static NoticiaDetailFragment newInstance(Noticia news) {
         NoticiaDetailFragment noticiaDetailFragment = new NoticiaDetailFragment();
@@ -76,6 +81,10 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
             mItem = getArguments().getParcelable(ARG_ITEM_ID);
 
             activity = this.getActivity();
+            NoticiasSQLiteHelper newsSQLH = new NoticiasSQLiteHelper(activity, NoticiasSQLiteHelper.DATABASE_NAME,
+                    null, NoticiasSQLiteHelper.DATABASE_VERSION);
+
+            db = newsSQLH.getWritableDatabase();
 
         }
     }
@@ -93,16 +102,26 @@ public class NoticiaDetailFragment extends Fragment implements View.OnClickListe
 
         if (mItem != null) {
             button.setOnClickListener(this);
-            if (newsPhoto != null)
+            if (newsPhoto != null){
                 Picasso.with(activity).load(mItem.getImage()).into(newsPhoto);
+                photo.setVisibility(View.GONE);
+            }else{
+                Picasso.with(activity).load(mItem.getImage()).into(photo);
+            }
+
             title.setText(mItem.getTitle());
             detail.setText(Html.fromHtml(mItem.getDescription()));
             Date fecha = mItem.getPubDate();
             pubdate.setText(DateFormatter.convertDateToString(fecha));
+            if(!NoticiasSQLiteHelper.CheckExist(db,mItem.getUrl()))
+                NoticiasSQLiteHelper.insertNoticia(db,mItem);
         }
 
         return rootView;
     }
+
+
+
 
     @Override
     public void onClick(View v) {
