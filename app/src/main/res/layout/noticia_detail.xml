@@ -36,7 +36,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="visitar web"
+        android:text="@string/visitar_web"
         android:id="@+id/button"
         android:layout_below="@+id/noticia_title"
         android:layout_alignParentLeft="true"

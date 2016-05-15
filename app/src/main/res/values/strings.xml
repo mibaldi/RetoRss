@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">RetoRss</string>
-    <string name="title_noticia_detail">Noticia Detail</string>
+    <string name="app_name">App RSS Reader</string>
+    <string name="title_noticia_detail">News Detail</string>
     <string name="progressDialogMessage">Loading...</string>
     <string name="titleSettings">UPDATE SETTINGS</string>
     <string name="subTitleSettings">Change newsfeed</string>
     <string name="textSettings">Option to change newsfeed.</string>
     <string name="action_settings">Settings</string>
+    <string name="Deportes">Sports</string>
+    <string name="España">Spain</string>
+    <string name="Portada">Front Page</string>
+    <string name="visitar_web">See in the browser</string>
 </resources>

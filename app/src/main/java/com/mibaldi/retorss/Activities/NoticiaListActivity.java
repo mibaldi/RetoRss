@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.crashlytics.android.Crashlytics;
 import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
 import com.mibaldi.retorss.DB.NoticiasSQLiteHelper;
 import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
@@ -40,6 +41,7 @@ import com.mibaldi.retorss.Utils.NetworkHelper;
 import com.mibaldi.retorss.Utils.NewsFeedType;
 import com.mibaldi.retorss.Utils.NewsFeedUtils;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -74,6 +76,7 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         PreferencesManager.getInstance().setContext(getApplicationContext());
         setContentView(R.layout.activity_noticia_list);
 
@@ -114,13 +117,13 @@ public class NoticiaListActivity extends AppCompatActivity implements SearchView
         NewsFeedUtils.applyNewsFeed(newsfeed);
         switch (newsfeed){
             case PORTADA:
-                setTitle("Portada");
+                setTitle(getString(R.string.Portada));
                 break;
             case ESPAÑA:
-                setTitle("España");
+                setTitle(getString(R.string.España));
                 break;
             case DEPORTE:
-                setTitle("Deportes");
+                setTitle(getString(R.string.Deportes));
                 break;
         }
     }

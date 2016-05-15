@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Portada">Portada</string>
+    <string name="España">España</string>
+    <string name="Deportes">Deportes</string>
+    <string name="visitar_web">Ver en el navegador</string>
+    <string name="action_settings">Preferencias</string>
+    <string name="app_name">App Lector RSS</string>
+    <string name="progressDialogMessage">Cargando...</string>
+    <string name="subTitleSettings">Cambiar de fuente de datos</string>
+    <string name="textSettings">Opción para cambiar la fuente de datos</string>
+    <string name="titleSettings">ACTUALIZACIÓN DE PREFERENCIAS</string>
+    <string name="title_noticia_detail">Detalles de la noticia</string>
+</resources>
