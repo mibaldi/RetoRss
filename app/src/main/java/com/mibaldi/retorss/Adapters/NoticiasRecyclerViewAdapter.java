@@ -9,6 +9,7 @@ import com.mibaldi.retorss.Holders.NoticiaListHolder;
 import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,5 +34,11 @@ public class NoticiasRecyclerViewAdapter extends RecyclerView.Adapter<NoticiaLis
     @Override
     public int getItemCount() {
         return listaNoticias.size();
+    }
+
+    public void setFilter(List<Noticia> filteredModelList) {
+        listaNoticias = new ArrayList<>();
+        listaNoticias.addAll(filteredModelList);
+        notifyDataSetChanged();
     }
 }

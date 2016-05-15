@@ -10,10 +10,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -35,6 +40,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+
+
 /**
  * An activity representing a list of Noticias. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -43,7 +50,7 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class NoticiaListActivity extends AppCompatActivity {
+public class NoticiaListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 
     private static final String URL2 = "http://estaticos.elmundo.es/elmundo/rss/portada.xml";
@@ -56,6 +63,8 @@ public class NoticiaListActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private NoticiasRecyclerViewAdapter noticiasRecyclerViewAdapter;
     private SQLiteDatabase db;
+    private MenuItem myActionMenuItem;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +111,52 @@ public class NoticiaListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+        myActionMenuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        MenuItemCompat.setOnActionExpandListener(myActionMenuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        final List<Noticia> filteredModelList = filter(noticias, newText);
+        noticiasRecyclerViewAdapter.setFilter(filteredModelList);
+        return false;
+    }
+
+    private List<Noticia> filter(List<Noticia> noticias, String newText) {
+        newText = newText.toLowerCase();
+        final ArrayList<Noticia> filteredNoticias = new ArrayList<>();
+        for (Noticia noticia : noticias) {
+            final String title = noticia.getTitle().toLowerCase();
+            if (title.contains(newText)) {
+                filteredNoticias.add(noticia);
+            }
+        }
+        return filteredNoticias;
+    }
+
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
          noticiasRecyclerViewAdapter = new NoticiasRecyclerViewAdapter(noticias);
         recyclerView.setAdapter(noticiasRecyclerViewAdapter);
@@ -109,6 +164,9 @@ public class NoticiaListActivity extends AppCompatActivity {
     public static boolean ismTwoPane() {
         return mTwoPane;
     }
+
+
+
     private class MyAsyncTask extends AsyncTask<String, Void, List<Noticia>> {
 
         @Override
