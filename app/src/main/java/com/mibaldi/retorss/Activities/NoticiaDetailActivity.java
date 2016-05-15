@@ -2,8 +2,6 @@ package com.mibaldi.retorss.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
+import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
 
 /**
@@ -46,11 +45,8 @@ public class NoticiaDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(NoticiaDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(NoticiaDetailFragment.ARG_ITEM_ID));
-            NoticiaDetailFragment fragment = new NoticiaDetailFragment();
-            fragment.setArguments(arguments);
+            Noticia news= getIntent().getParcelableExtra(NoticiaDetailFragment.ARG_ITEM_ID);
+            NoticiaDetailFragment fragment = NoticiaDetailFragment.newInstance(news);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.noticia_detail_container, fragment)
                     .commit();

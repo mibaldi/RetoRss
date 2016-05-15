@@ -1,14 +1,14 @@
 package com.mibaldi.retorss.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,7 @@ import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
 import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
 import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
+import com.mibaldi.retorss.Rss.ParseadorRSSXML;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,15 @@ import java.util.List;
 public class NoticiaListActivity extends AppCompatActivity {
 
 
-
+    private static final String URL2 = "http://estaticos.elmundo.es/elmundo/rss/portada.xml";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private static boolean mTwoPane;
     private List<Noticia> noticias = new ArrayList<>();
+    private ProgressDialog mProgressDialog;
+    private NoticiasRecyclerViewAdapter noticiasRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class NoticiaListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
+        mProgressDialog = new ProgressDialog(this);
         View recyclerView = findViewById(R.id.noticia_list);
         assert recyclerView != null;
 
@@ -64,88 +67,46 @@ public class NoticiaListActivity extends AppCompatActivity {
         }else {
             mTwoPane = false;
         }
-        Noticia noticia= new Noticia();
+        /*Noticia noticia= new Noticia();
         noticia.setTitle("Nueva noticia");
         noticia.setDescription("descripcion");
         noticia.setUrl("http://www.google.es");
-        noticias.add(noticia);
+        noticias.add(noticia);*/
         setupRecyclerView((RecyclerView) recyclerView);
+        MyXmlAsyncTask myXmlAsyncTask = new MyXmlAsyncTask();
+        myXmlAsyncTask.execute(URL2);
 
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new NoticiasRecyclerViewAdapter(noticias));
+         noticiasRecyclerViewAdapter = new NoticiasRecyclerViewAdapter(noticias);
+        recyclerView.setAdapter(noticiasRecyclerViewAdapter);
     }
     public static boolean ismTwoPane() {
         return mTwoPane;
     }
+    private class MyXmlAsyncTask extends AsyncTask<String, Void, List<Noticia>> {
 
-   /* public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+        @Override
+        protected void onPreExecute() {
 
-        private final List<DummyContent.DummyItem> mValues;
-
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-            mValues = items;
+           mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setMessage(getString(R.string.progressDialogMessage));
+            mProgressDialog.show();
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.noticia_list_content, parent, false);
-            return new ViewHolder(view);
+        protected List<Noticia> doInBackground(String... params) {
+            ParseadorRSSXML saxparser = new ParseadorRSSXML(params[0]);
+            return saxparser.parse();
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTwoPane) {
-                        Bundle arguments = new Bundle();
-                        arguments.putString(NoticiaDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-                        NoticiaDetailFragment fragment = new NoticiaDetailFragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.noticia_detail_container, fragment)
-                                .commit();
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, NoticiaDetailActivity.class);
-                        intent.putExtra(NoticiaDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-
-                        context.startActivity(intent);
-                    }
-                }
-            });
+        protected void onPostExecute(List<Noticia> items) {
+            if (mProgressDialog.isShowing())
+                mProgressDialog.dismiss();
+            noticias.addAll(items);
+            noticiasRecyclerViewAdapter.notifyDataSetChanged();
         }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
-            }
-        }
-    }*/
+    }
 }

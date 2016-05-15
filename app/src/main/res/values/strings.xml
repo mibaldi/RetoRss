@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RetoRss</string>
     <string name="title_noticia_detail">Noticia Detail</string>
+    <string name="progressDialogMessage">Loading...</string>
 </resources>

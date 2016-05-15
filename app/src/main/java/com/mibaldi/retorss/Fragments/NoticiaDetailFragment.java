@@ -17,9 +17,13 @@ import com.mibaldi.retorss.Activities.NoticiaDetailActivity;
 import com.mibaldi.retorss.Activities.NoticiaListActivity;
 import com.mibaldi.retorss.Models.Noticia;
 import com.mibaldi.retorss.R;
+import com.mibaldi.retorss.Utils.DateFormatter;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A fragment representing a single Noticia detail screen.
@@ -81,16 +85,20 @@ public class NoticiaDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.noticia_detail, container, false);
+        ButterKnife.bind(this,rootView);
         CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
             appBarLayout.setTitle(" ");
         }
+        newsPhoto = (ImageView) activity.findViewById(R.id.newsPhoto);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             if (newsPhoto != null)
                 Picasso.with(activity).load(mItem.getImage()).into(newsPhoto);
             title.setText(mItem.getTitle());
             detail.setText(Html.fromHtml(mItem.getDescription()));
+            Date fecha = mItem.getPubDate();
+            pubdate.setText(DateFormatter.convertDateToString(fecha));
         }
 
         return rootView;
