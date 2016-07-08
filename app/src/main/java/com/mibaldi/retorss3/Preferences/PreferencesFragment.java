@@ -1,4 +1,4 @@
-package com.mibaldi.retorss2.Preferences;
+package com.mibaldi.retorss3.Preferences;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -6,9 +6,9 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.widget.Toolbar;
 
-import com.mibaldi.retorss2.R;
-import com.mibaldi.retorss2.Utils.NewsFeedType;
-import com.mibaldi.retorss2.Utils.NewsFeedUtils;
+import com.mibaldi.retorss3.R;
+import com.mibaldi.retorss3.Utils.NewsFeedType;
+import com.mibaldi.retorss3.Utils.NewsFeedUtils;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.

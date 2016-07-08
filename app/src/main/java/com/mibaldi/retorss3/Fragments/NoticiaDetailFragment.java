@@ -1,4 +1,4 @@
-package com.mibaldi.retorss2.Fragments;
+package com.mibaldi.retorss3.Fragments;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,12 +15,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mibaldi.retorss2.Activities.NoticiaDetailActivity;
-import com.mibaldi.retorss2.Activities.NoticiaListActivity;
-import com.mibaldi.retorss2.DB.NoticiasSQLiteHelper;
-import com.mibaldi.retorss2.Models.Noticia;
-import com.mibaldi.retorss2.R;
-import com.mibaldi.retorss2.Utils.DateFormatter;
+import com.mibaldi.retorss3.Activities.NoticiaDetailActivity;
+import com.mibaldi.retorss3.Activities.NoticiaListActivity;
+import com.mibaldi.retorss3.DB.NoticiasSQLiteHelper;
+import com.mibaldi.retorss3.Models.Noticia;
+import com.mibaldi.retorss3.R;
+import com.mibaldi.retorss3.Utils.DateFormatter;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;

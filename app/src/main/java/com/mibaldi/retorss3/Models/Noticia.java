@@ -1,4 +1,4 @@
-package com.mibaldi.retorss2.Models;
+package com.mibaldi.retorss3.Models;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mibaldi.retorss2.DB.NoticiasSQLiteHelper;
-import com.mibaldi.retorss2.Utils.DateFormatter;
+import com.mibaldi.retorss3.DB.NoticiasSQLiteHelper;
+import com.mibaldi.retorss3.Utils.DateFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;

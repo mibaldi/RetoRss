@@ -1,4 +1,4 @@
-package com.mibaldi.retorss2.Holders;
+package com.mibaldi.retorss3.Holders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mibaldi.retorss2.Activities.NoticiaDetailActivity;
-import com.mibaldi.retorss2.Activities.NoticiaListActivity;
-import com.mibaldi.retorss2.Fragments.NoticiaDetailFragment;
-import com.mibaldi.retorss2.Models.Noticia;
-import com.mibaldi.retorss2.R;
+import com.mibaldi.retorss3.Activities.NoticiaDetailActivity;
+import com.mibaldi.retorss3.Activities.NoticiaListActivity;
+import com.mibaldi.retorss3.Fragments.NoticiaDetailFragment;
+import com.mibaldi.retorss3.Models.Noticia;
+import com.mibaldi.retorss3.R;
 import com.squareup.picasso.Picasso;
 
 /**

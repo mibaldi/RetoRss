@@ -1,10 +1,10 @@
-package com.mibaldi.retorss2.Utils;
+package com.mibaldi.retorss3.Utils;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.mibaldi.retorss2.Preferences.PreferencesManager;
-import com.mibaldi.retorss2.R;
+import com.mibaldi.retorss3.Preferences.PreferencesManager;
+import com.mibaldi.retorss3.R;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.
