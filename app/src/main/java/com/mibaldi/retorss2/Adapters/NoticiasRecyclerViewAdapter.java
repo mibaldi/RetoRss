@@ -1,13 +1,13 @@
-package com.mibaldi.retorss.Adapters;
+package com.mibaldi.retorss2.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mibaldi.retorss.Holders.NoticiaListHolder;
-import com.mibaldi.retorss.Models.Noticia;
-import com.mibaldi.retorss.R;
+import com.mibaldi.retorss2.Holders.NoticiaListHolder;
+import com.mibaldi.retorss2.Models.Noticia;
+import com.mibaldi.retorss2.R;
 
 import java.util.ArrayList;
 import java.util.List;

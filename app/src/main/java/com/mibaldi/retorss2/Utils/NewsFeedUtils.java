@@ -1,9 +1,6 @@
-package com.mibaldi.retorss.Utils;
+package com.mibaldi.retorss2.Utils;
 
-import android.content.Context;
-import android.support.v7.widget.Toolbar;
-
-import com.mibaldi.retorss.Activities.NoticiaListActivity;
+import com.mibaldi.retorss2.Activities.NoticiaListActivity;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.

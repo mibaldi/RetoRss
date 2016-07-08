@@ -1,10 +1,9 @@
-package com.mibaldi.retorss.Preferences;
+package com.mibaldi.retorss2.Preferences;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.mibaldi.retorss.R;
-import com.mibaldi.retorss.Utils.BaseActivity;
+import com.mibaldi.retorss2.R;
+import com.mibaldi.retorss2.Utils.BaseActivity;
 
 public class PreferenceActivity extends BaseActivity {
 

@@ -1,50 +1,38 @@
-package com.mibaldi.retorss.Activities;
+package com.mibaldi.retorss2.Activities;
 
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.crashlytics.android.Crashlytics;
-import com.mibaldi.retorss.Adapters.NoticiasRecyclerViewAdapter;
-import com.mibaldi.retorss.DB.NoticiasSQLiteHelper;
-import com.mibaldi.retorss.Fragments.NoticiaDetailFragment;
-import com.mibaldi.retorss.Models.Noticia;
-import com.mibaldi.retorss.Preferences.PreferenceActivity;
-import com.mibaldi.retorss.Preferences.PreferencesManager;
-import com.mibaldi.retorss.R;
-import com.mibaldi.retorss.Rss.ParseadorRSSXML;
-import com.mibaldi.retorss.Utils.CustomComparator;
-import com.mibaldi.retorss.Utils.DateFormatter;
-import com.mibaldi.retorss.Utils.NetworkHelper;
-import com.mibaldi.retorss.Utils.NewsFeedType;
-import com.mibaldi.retorss.Utils.NewsFeedUtils;
+import com.mibaldi.retorss2.Adapters.NoticiasRecyclerViewAdapter;
+import com.mibaldi.retorss2.DB.NoticiasSQLiteHelper;
+import com.mibaldi.retorss2.Models.Noticia;
+import com.mibaldi.retorss2.Preferences.PreferenceActivity;
+import com.mibaldi.retorss2.Preferences.PreferencesManager;
+import com.mibaldi.retorss2.R;
+import com.mibaldi.retorss2.Rss.ParseadorRSSXML;
+import com.mibaldi.retorss2.Utils.CustomComparator;
+import com.mibaldi.retorss2.Utils.NetworkHelper;
+import com.mibaldi.retorss2.Utils.NewsFeedType;
+import com.mibaldi.retorss2.Utils.NewsFeedUtils;
 
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 

@@ -1,17 +1,8 @@
-package com.mibaldi.retorss.DB;
+package com.mibaldi.retorss2.DB;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.mibaldi.retorss.Models.Noticia;
-import com.mibaldi.retorss.Utils.DateFormatter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.

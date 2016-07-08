@@ -1,4 +1,4 @@
-package com.mibaldi.retorss.Utils;
+package com.mibaldi.retorss2.Utils;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.
