@@ -1,4 +1,4 @@
-package com.mibaldi.retorss3.Activities;
+package com.mibaldi.retorss4.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.mibaldi.retorss3.Fragments.NoticiaDetailFragment;
-import com.mibaldi.retorss3.Models.Noticia;
-import com.mibaldi.retorss3.R;
+import com.mibaldi.retorss4.Fragments.NoticiaDetailFragment;
+import com.mibaldi.retorss4.Models.Noticia;
+import com.mibaldi.retorss4.R;
 
 /**
  * An activity representing a single Noticia detail screen. This

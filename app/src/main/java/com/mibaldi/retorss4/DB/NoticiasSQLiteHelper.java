@@ -1,4 +1,4 @@
-package com.mibaldi.retorss3.DB;
+package com.mibaldi.retorss4.DB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
