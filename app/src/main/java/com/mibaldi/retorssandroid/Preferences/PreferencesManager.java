@@ -1,10 +1,10 @@
-package com.mibaldi.retorss4.Preferences;
+package com.mibaldi.retorssandroid.Preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
-import com.mibaldi.retorss4.Utils.NewsFeedType;
+import com.mibaldi.retorssandroid.Utils.NewsFeedType;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.

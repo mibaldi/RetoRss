@@ -1,4 +1,4 @@
-package com.mibaldi.retorss4.Utils;
+package com.mibaldi.retorssandroid.Utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

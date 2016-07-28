@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mibaldi.retorss4">
+    package="com.mibaldi.retorssandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.mibaldi.retorss4.Activities.NoticiaListActivity"
+            android:name="com.mibaldi.retorssandroid.Activities.NoticiaListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,15 +22,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mibaldi.retorss4.Activities.NoticiaDetailActivity"
+            android:name="com.mibaldi.retorssandroid.Activities.NoticiaDetailActivity"
             android:label="@string/title_noticia_detail"
-            android:parentActivityName="com.mibaldi.retorss4.Activities.NoticiaListActivity"
+            android:parentActivityName="com.mibaldi.retorssandroid.Activities.NoticiaListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mibaldi.retorss4.Activities.NoticiaListActivity" />
+                android:value="com.mibaldi.retorssandroid.Activities.NoticiaListActivity" />
         </activity>
-        <activity android:name="com.mibaldi.retorss4.Preferences.PreferenceActivity"
+        <activity android:name="com.mibaldi.retorssandroid.Preferences.PreferenceActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <meta-data
             android:name="io.fabric.ApiKey"

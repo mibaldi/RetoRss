@@ -1,4 +1,4 @@
-package com.mibaldi.retorss4.Utils;
+package com.mibaldi.retorssandroid.Utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,6 +1,6 @@
-package com.mibaldi.retorss4.Utils;
+package com.mibaldi.retorssandroid.Utils;
 
-import com.mibaldi.retorss4.Models.Noticia;
+import com.mibaldi.retorssandroid.Models.Noticia;
 
 import java.util.Comparator;
 

@@ -1,4 +1,4 @@
-package com.mibaldi.retorss4.Utils;
+package com.mibaldi.retorssandroid.Utils;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.

@@ -1,4 +1,4 @@
-package com.mibaldi.retorss4.Activities;
+package com.mibaldi.retorssandroid.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,17 +18,17 @@ import android.view.View;
 
 
 import com.crashlytics.android.Crashlytics;
-import com.mibaldi.retorss4.Adapters.NoticiasRecyclerViewAdapter;
-import com.mibaldi.retorss4.DB.NoticiasSQLiteHelper;
-import com.mibaldi.retorss4.Models.Noticia;
-import com.mibaldi.retorss4.Preferences.PreferenceActivity;
-import com.mibaldi.retorss4.Preferences.PreferencesManager;
-import com.mibaldi.retorss4.R;
-import com.mibaldi.retorss4.Rss.ParseadorRSSXML;
-import com.mibaldi.retorss4.Utils.CustomComparator;
-import com.mibaldi.retorss4.Utils.NetworkHelper;
-import com.mibaldi.retorss4.Utils.NewsFeedType;
-import com.mibaldi.retorss4.Utils.NewsFeedUtils;
+import com.mibaldi.retorssandroid.Adapters.NoticiasRecyclerViewAdapter;
+import com.mibaldi.retorssandroid.DB.NoticiasSQLiteHelper;
+import com.mibaldi.retorssandroid.Models.Noticia;
+import com.mibaldi.retorssandroid.Preferences.PreferenceActivity;
+import com.mibaldi.retorssandroid.Preferences.PreferencesManager;
+import com.mibaldi.retorssandroid.R;
+import com.mibaldi.retorssandroid.Rss.ParseadorRSSXML;
+import com.mibaldi.retorssandroid.Utils.CustomComparator;
+import com.mibaldi.retorssandroid.Utils.NetworkHelper;
+import com.mibaldi.retorssandroid.Utils.NewsFeedType;
+import com.mibaldi.retorssandroid.Utils.NewsFeedUtils;
 
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;

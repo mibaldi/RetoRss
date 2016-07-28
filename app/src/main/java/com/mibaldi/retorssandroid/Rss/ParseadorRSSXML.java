@@ -1,4 +1,4 @@
-package com.mibaldi.retorss4.Rss;
+package com.mibaldi.retorssandroid.Rss;
 
 import android.sax.Element;
 import android.sax.ElementListener;
@@ -8,8 +8,8 @@ import android.sax.RootElement;
 import android.sax.StartElementListener;
 import android.util.Xml;
 
-import com.mibaldi.retorss4.Models.Noticia;
-import com.mibaldi.retorss4.Utils.DateFormatter;
+import com.mibaldi.retorssandroid.Models.Noticia;
+import com.mibaldi.retorssandroid.Utils.DateFormatter;
 
 import org.xml.sax.Attributes;
 

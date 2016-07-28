@@ -1,6 +1,6 @@
-package com.mibaldi.retorss4.Utils;
+package com.mibaldi.retorssandroid.Utils;
 
-import com.mibaldi.retorss4.Activities.NoticiaListActivity;
+import com.mibaldi.retorssandroid.Activities.NoticiaListActivity;
 
 /**
  * Created by mikelbalducieldiaz on 15/5/16.
